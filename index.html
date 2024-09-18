@@ -1,0 +1,130 @@
+<head>
+    <link rel="icon" type="image/x-icon" href="OIP.jpg">
+    <title>Dashboard</title>
+</head>
+<body onload="setLocal()">
+
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+        img {
+            cursor: pointer;
+        }
+        img:active {
+            height: 490;
+            width: 490;
+        }
+        a {
+            font-family: sans-serif;
+            font-size: 30px;
+            color: black;
+        }
+        button {
+            padding: 20px;
+            font-size: 15px;
+            background-color: yellow;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+    </style>
+    <center>
+        <h1>chese</h1>
+        <img src="cheese.jpg" height="500" width="500" onclick="morecheese()">
+        <br>
+        <span id="cheese">0 cheese</span><br><br>
+        <span id="isitdone">10...</span><br><br>
+        <button id="doubler" onclick="ye()">+1 cheese per click (500 cheese)</button><br><br>
+        <button id="coubler" onclick="che()">+1 cheese per second (1 cheese)</button><br><br>
+        <a href="">Reset?</a>
+    </center>
+
+    <script>
+        // Storing data
+
+
+// Retrieving data
+        function setLocal() {
+
+            
+        }
+
+        var doublecost = 500; 
+        var doubler = 1;
+        var time= 10; 
+        var cheps = 0;
+        var checost = 1;
+        var cps = 1;
+        setInterval(addmore, 100);
+        function addmore() {
+            cheese += cheps / 10;
+            cheese = (Math.round(cheese * 10)) /10;
+                            document.getElementById("cheese").innerHTML = cheese.toString()+ " cheese";
+                            console.log(cheps);
+
+                            localStorage.setItem("username", cheese);
+                            document.getElementById("coubler").setAttribute("background-color", "yellow");
+        }
+        function che() {
+            if (cheese > checost) {
+                cheese = cheese - checost; 
+                cheps += cps;
+                cps++;
+                checost = checost + 1000;
+                document.getElementById("cheese").innerHTML = cheese.toString()+ "cheese"
+                document.getElementById("coubler").innerHTML = "+"+cps+" cheese per second ("+checost+" cheese)";
+
+                document.getElementById("coubler").setAttribute("background-color", "green");
+            } else {
+                alert("not enough CHEESE!")
+            }
+        }
+            function ye() {
+            if (cheese > doublecost) {
+                cheese = cheese - doublecost; 
+                doubler = doubler * 2;
+                doublecost = doublecost * 3;
+                doublecost = Math.round(doublecost);
+                document.getElementById("cheese").innerHTML = cheese.toString()+" cheese";
+
+                document.getElementById("doubler").innerHTML = "x2 cheese per click ("+doublecost+" cheese)"
+                alert("Sucess!")
+            } else {
+                alert("not enough CHEESE!")
+            }
+        }
+        const myTimeout1 = setTimeout(update, 1000);
+        const myTimeout2 = setTimeout(update, 2000);
+        const myTimeout3 = setTimeout(update, 3000);
+        const myTimeout4 = setTimeout(update, 4000);
+        const myTimeout5 = setTimeout(update, 5000);
+        const myTimeout6 = setTimeout(update, 6000);
+        const myTimeout7 = setTimeout(update, 7000);
+        const myTimeost8 = setTimeout(update, 8000);
+        const myTimeout9 = setTimeout(update, 9000);
+        const myTimeout10 = setTimeout(update,10000);
+        function update() {
+            time = time-1;
+            document.getElementById("isitdone").innerHTML = time+"..."
+        }
+        var cheese=0;
+        var hasdone = false;
+
+        const myTimeout = setTimeout(cheesepersecond, 10000);
+        function morecheese() {
+            cheese+= doubler;
+            document.getElementById("cheese").innerHTML = cheese.toString()+" cheese";
+            localStorage.setItem("username", cheese);
+        }
+
+        function cheesepersecond() {
+            cheeseps = (cheese/10);     
+
+            console.log(hrecheese);
+            cheese = hrecheese;
+            alert("You got "+cheese+" cheese in 10 seconds, coming out to "+cheeseps+" cheese per second. Entering freeplay mode.");
+            document.getElementById("isitdone").innerHTML = "";
+        }
+
+    </script>
+</body>
