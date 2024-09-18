@@ -32,10 +32,10 @@
         <h1>chese</h1>
         <img src="cheese.jpg" height="500" width="500" onclick="morecheese()">
         <br>
-        <span id="cheese">0 cheese</span><br><br>
+        <span id="cheese">0 cheddar cheese</span><br><br>
         <span id="isitdone">10...</span><br><br>
-        <button id="doubler" onclick="ye()">+1 cheese per click (500 cheese)</button><br><br>
-        <button id="coubler" onclick="che()">+1 cheese per second (1 cheese)</button><br><br>
+        <button id="doubler" onclick="ye()">+1 cheddar cheese per click (500 cheddar cheese)</button><br><br>
+        <button id="coubler" onclick="che()">+1 cheddar cheese per second (200 cheddar cheese)</button><br><br>
         <a href="">Reset?</a>
     </center>
 
@@ -53,13 +53,13 @@
         var doubler = 1;
         var time= 10; 
         var cheps = 0;
-        var checost = 1;
+        var checost = 200;
         var cps = 1;
         setInterval(addmore, 100);
         function addmore() {
             cheese += cheps / 10;
             cheese = (Math.round(cheese * 10)) /10;
-                            document.getElementById("cheese").innerHTML = cheese.toString()+ " cheese";
+                            document.getElementById("cheese").innerHTML = cheese.toString()+ " cheddar cheese";
                             console.log(cheps);
 
                             localStorage.setItem("username", cheese);
@@ -70,9 +70,9 @@
                 cheese = cheese - checost; 
                 cheps += cps;
                 cps++;
-                checost = checost + 1000;
-                document.getElementById("cheese").innerHTML = cheese.toString()+ "cheese"
-                document.getElementById("coubler").innerHTML = "+"+cps+" cheese per second ("+checost+" cheese)";
+                checost = checost * 1.5;
+                document.getElementById("cheese").innerHTML = cheese.toString()+ "cheddar cheese"
+                document.getElementById("coubler").innerHTML = "+"+cps+" cheddar cheese per second ("+checost+" cheddar cheese)";
 
                 document.getElementById("coubler").setAttribute("background-color", "green");
             } else {
@@ -85,9 +85,9 @@
                 doubler = doubler * 2;
                 doublecost = doublecost * 3;
                 doublecost = Math.round(doublecost);
-                document.getElementById("cheese").innerHTML = cheese.toString()+" cheese";
+                document.getElementById("cheese").innerHTML = cheese.toString()+" cheddar cheese";
 
-                document.getElementById("doubler").innerHTML = "x2 cheese per click ("+doublecost+" cheese)"
+                document.getElementById("doubler").innerHTML = "x2 cheddar cheese per click ("+doublecost+" cheddar cheese)"
                 alert("Sucess!")
             } else {
                 alert("not enough CHEESE!")
@@ -113,7 +113,7 @@
         const myTimeout = setTimeout(cheesepersecond, 10000);
         function morecheese() {
             cheese+= doubler;
-            document.getElementById("cheese").innerHTML = cheese.toString()+" cheese";
+            document.getElementById("cheese").innerHTML = cheese.toString()+"cheddar cheese";
             localStorage.setItem("username", cheese);
         }
 
@@ -122,7 +122,7 @@
 
             console.log(hrecheese);
             cheese = hrecheese;
-            alert("You got "+cheese+" cheese in 10 seconds, coming out to "+cheeseps+" cheese per second. Entering freeplay mode.");
+            alert("You got "+cheese+"cheddar cheese in 10 seconds, coming out to "+cheeseps+"cheddar cheese per second. Entering freeplay mode.");
             document.getElementById("isitdone").innerHTML = "";
         }
 
