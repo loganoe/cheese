@@ -52,7 +52,7 @@
         <button id="coubler" onclick="che()">+1 cheddar cheese per second (200 cheddar cheese)</button><br><br>
         <button id="sellcheese" onclick="sell()">Sell cheddar cheese at a rate of $1 per cheddar cheese</button> <br><br>
         <input type="range" min="1" max="100" value="1" id="marketing" width="50vw"> <span id="ismuch"></span> <button onclick="market()">Confirm marketing upgrades?</button> <br><br>
-        <button id="getstocks" onclick="stonks()">Invest in stocks (1% appreciation every 10 seconds, 1% chance of market crash every 10 seconds)</button><br><br>
+        <button id="getstocks" onclick="stonks()">Invest in stocks (1% appreciation every 10 seconds, 0.1% chance of market crash every 10 seconds)</button><br><br>
         <button id="sell" onclick="nostonks()">Sell all stocks</button><br><br>
         <a href="">Reset?</a>
     </center>
@@ -70,9 +70,9 @@
         function stocks() {
             investmentamount += Math.ceil(investmentamount / 100); 
             document.getElementById("stocks").innerHTML = "$"+investmentamount+" in stock funds";
-            if ((Math.floor(101 * Math.random())) == 50) {
+            if ((Math.floor(1001 * Math.random())) == 500) {
                 alert("Market crash!");
-                investmentamount = Math.round(investmentamount / 2);
+                investmentamount = Math.round(investmentamount / 10);
                 document.getElementById("stocks").innerHTML = "$"+investmentamount+" in stock funds"; 
             }
         }
