@@ -101,7 +101,7 @@
                 marketing += Number(slideramount); 
                 funds -= Math.floor((slideramount * 10000) * (cheeseprice / 1.5));
                 cheeseprice = ((marketing / 2) + 1); 
-                document.getElementById("markets").innerHTML = (Number(slideramount) + 1)+"% marketing power ($"+ cheeseprice +" per cheese)";
+                document.getElementById("markets").innerHTML = (Number(slideramount) + marketing)+"% marketing power ($"+ cheeseprice +" per cheese)";
 
             } else {
                 alert("Not enough FUNDS!");
@@ -151,7 +151,7 @@
                 cheese = cheese - checost; 
                 cheps += cps;
                 cps++;
-                checost = checost * 1.5;
+                checost = checost * 3;
                 document.getElementById("cheese").innerHTML = cheese.toString()+ "cheddar cheese"
                 document.getElementById("coubler").innerHTML = "+"+cps+" cheddar cheese per second ("+checost+" cheddar cheese)";
 
