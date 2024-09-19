@@ -1,4 +1,4 @@
-<head>
+<head></head>
     <link rel="icon" type="image/x-icon" href="OIP.jpg">
     <title>Dashboard</title>
 </head>
@@ -13,7 +13,7 @@
         }
         img:active {
             height: 490;
-            width: 490;
+            width: 585;
         }
         a {
             font-family: sans-serif;
@@ -27,15 +27,33 @@
             border-radius: 10px;
             cursor: pointer;
         }
+        #marketing {
+            width: 50vw;
+            background: lightgrey;
+        }
+        #marketing::-webkit-slider-thumb {
+            -webkit-apperance: none;
+            background-color: yellow;
+            cursor: pointer;
+        }
     </style>
     <center>
-        <h1>chese</h1>
-        <img src="cheese.jpg" height="500" width="500" onclick="morecheese()">
+        <h1>chese pro 6000</h1>
+        <img src="https://th.bing.com/th/id/OIP.lnkckrOFVPFHo7xFrKeNKQHaE8?rs=1&pid=ImgDetMain" height="500" width="600" onclick="morecheese()">
         <br>
         <span id="cheese">0 cheddar cheese</span><br><br>
-        <span id="isitdone">10...</span><br><br>
-        <button id="doubler" onclick="ye()">+1 cheddar cheese per click (500 cheddar cheese)</button><br><br>
-        <button id="coubler" onclick="che()">+1 cheddar cheese per second (200 cheddar cheese)</button><br><br>
+        <span id="perclick">1 cheddar cheese per click</span><br><br>
+        <span id="persec">0 cheddar cheese per second</span> <br><br>
+        <span id="assets">$0 in total liquid assets</span> <br><br>
+        <span id="cash">$0 in available funds</span> <br><br>
+        <span id="markets">1% marketing power</span> <br><br>
+        <span id="stocks">$0 in stock funds</span> <br><br>
+        <button id="doubler" onclick="ye()">x2 cheddar cheese per click (500 cheddar cheese)</button><br><br>
+        <button id="coubler" onclick="che()">+1 cheddar cheese per second (20python superduper.py0 cheddar cheese)</button><br><br>
+        <button id="sellcheese" onclick="sell()">Sell cheddar cheese at a rate of $1 per cheddar cheese</button> <br><br>
+        <input type="range" min="1" max="100" value="1" id="marketing" width="50vw"> <span id="ismuch"></span> <button onclick="market()">Confirm marketing upgrades?</button> <br><br>
+        <button id="getstocks" onclick="stonks()">Invest in stocks (1% appreciation every 10 seconds, 1% chance of market crash every 10 seconds)</button><br><br>
+        <button id="sell" onclick="nostonks()">Sell all stocks</button><br><br>
         <a href="">Reset?</a>
     </center>
 
@@ -46,17 +64,78 @@
 // Retrieving data
         function setLocal() {
 
+
             
         }
+        function stocks() {
+            investmentamount += Math.round(investmentamount / 10) / 10; 
+            document.getElementById("stocks").innerHTML = "$"+investmentamount+" in stock funds";
+            if ((Math.floor(101 * Math.random())) == 50) {
+                alert("Market crash!");
+                investmentamount = Math.round(investmentamount / 2);
+                document.getElementById("stocks").innerHTML = "$"+investmentamount+" in stock funds"; 
+            }
+        }
+        function stonks() {
+            let inv = prompt("How much are you willing to invest?");
+            if (funds > Number(inv)) {
+                funds -= Number(inv);
+                investmentamount += Number(inv);
+                document.getElementById("stocks").innerHTML = "$"+investmentamount+" in stock funds";
+            } else {
+                alert("Not enough FUNDS!");
+            }
 
+        }
+        function nostonks() {
+            funds += investmentamount; 
+            investmentamount = 0; 
+            document.getElementById("stocks").innerHTML = "$"+investmentamount+" in stock funds";
+            alert("Withdrew all stock funds!");
+        }
+        function market() {
+            var slideramount = document.getElementById("marketing").value;
+            if (funds > Math.floor((slideramount * 10000) * (cheeseprice / 1.5))) {
+                marketing += Number(slideramount); 
+                funds -= Math.floor((slideramount * 10000) * (cheeseprice / 1.5));
+                cheeseprice = ((marketing / 2) + 1); 
+                document.getElementById("markets").innerHTML = (Number(slideramount) + 1)+"% marketing power ($"+ cheeseprice +" per cheese)";
+
+            } else {
+                alert("Not enough FUNDS!");
+            }
+        }
+        function sell() {
+            let sellamount = prompt("How much cheese would you like to sell?");
+            if (sellamount > cheese) {
+                alert("Not enough CHEESE!");
+                sellamount = 0;
+            } else {
+                cheese -= Number(sellamount);
+                funds += Number(sellamount) * cheeseprice; 
+            }
+        }
+        var marketing = 1;
+        var funds = 0;
+        var cheeseprice = 1;
         var doublecost = 500; 
         var doubler = 1;
         var time= 10; 
         var cheps = 0;
         var checost = 200;
         var cps = 1;
+        var investmentamount = 0; 
+        var time; 
         setInterval(addmore, 100);
+        setInterval(stocks, 10000);
         function addmore() {
+            var slideramount = document.getElementById("marketing").value;
+            document.getElementById("ismuch").innerHTML = "+"+ slideramount + "% to marketing ($"+ (Math.floor((slideramount * 10000) * (cheeseprice / 1.5))) + " from funds)"
+            document.getElementById("sellcheese").innerHTML = "Sell cheddar cheese at a rate of $"+cheeseprice+" per cheddar cheese";
+            document.getElementById("cash").innerHTML = "$"+funds+" in available funds";
+            document.getElementById("assets").innerHTML = "$"+ ((cheeseprice * cheese) + funds + investmentamount) + " in total liquid assets"
+            document.getElementById("perclick").innerHTML = doubler + " cheddar cheese per click";
+            document.getElementById("persec").innerHTML = cheps + " cheddar cheese per second";
             cheese += cheps / 10;
             cheese = (Math.round(cheese * 10)) /10;
                             document.getElementById("cheese").innerHTML = cheese.toString()+ " cheddar cheese";
@@ -87,44 +166,24 @@
                 doublecost = Math.round(doublecost);
                 document.getElementById("cheese").innerHTML = cheese.toString()+" cheddar cheese";
 
-                document.getElementById("doubler").innerHTML = "x2 cheddar cheese per click ("+doublecost+" cheddar cheese)"
-                alert("Sucess!")
+                document.getElementById("doubler").innerHTML = "x2 cheddar cheese per click ("+doublecost+" cheddar cheese)";
             } else {
                 alert("not enough CHEESE!")
             }
         }
-        const myTimeout1 = setTimeout(update, 1000);
-        const myTimeout2 = setTimeout(update, 2000);
-        const myTimeout3 = setTimeout(update, 3000);
-        const myTimeout4 = setTimeout(update, 4000);
-        const myTimeout5 = setTimeout(update, 5000);
-        const myTimeout6 = setTimeout(update, 6000);
-        const myTimeout7 = setTimeout(update, 7000);
-        const myTimeost8 = setTimeout(update, 8000);
-        const myTimeout9 = setTimeout(update, 9000);
-        const myTimeout10 = setTimeout(update,10000);
-        function update() {
-            time = time-1;
-            document.getElementById("isitdone").innerHTML = time+"..."
-        }
+
+
         var cheese=0;
         var hasdone = false;
 
-        const myTimeout = setTimeout(cheesepersecond, 10000);
+
         function morecheese() {
             cheese+= doubler;
             document.getElementById("cheese").innerHTML = cheese.toString()+"cheddar cheese";
             localStorage.setItem("username", cheese);
         }
 
-        function cheesepersecond() {
-            cheeseps = (cheese/10);     
 
-            console.log(hrecheese);
-            cheese = hrecheese;
-            alert("You got "+cheese+"cheddar cheese in 10 seconds, coming out to "+cheeseps+"cheddar cheese per second. Entering freeplay mode.");
-            document.getElementById("isitdone").innerHTML = "";
-        }
 
     </script>
 </body>
