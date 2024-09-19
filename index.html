@@ -68,7 +68,7 @@
             
         }
         function stocks() {
-            investmentamount += Math.round(investmentamount / 10) / 10; 
+            investmentamount += Math.ceil(investmentamount / 100); 
             document.getElementById("stocks").innerHTML = "$"+investmentamount+" in stock funds";
             if ((Math.floor(101 * Math.random())) == 50) {
                 alert("Market crash!");
@@ -78,7 +78,9 @@
         }
         function stonks() {
             let inv = prompt("How much are you willing to invest?");
-            if (funds > Number(inv)) {
+            if (funds < 99) {
+                alert("You must invest AT LEAST $100");
+            } else if (funds > Number(inv)) {
                 funds -= Number(inv);
                 investmentamount += Number(inv);
                 document.getElementById("stocks").innerHTML = "$"+investmentamount+" in stock funds";
