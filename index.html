@@ -23,9 +23,15 @@
         button {
             padding: 20px;
             font-size: 15px;
-            background-color: yellow;
+            background-color: rgb(255, 255, 52);
             border-radius: 10px;
             cursor: pointer;
+            transition: .2s;
+        }
+        button:hover {
+            background-color: yellow;
+            padding: 21px;
+            transition: .2s;
         }
         #marketing {
             width: 50vw;
@@ -33,9 +39,10 @@
         }
         #marketing::-webkit-slider-thumb {
             -webkit-apperance: none;
-            background-color: yellow;
+            background-color: rgb(255, 255, 52);
             cursor: pointer;
         }
+
     </style>
     <center>
         <h1>chese pro 6000</h1>
@@ -48,13 +55,14 @@
         <span id="cash">$0 in available funds</span> <br><br>
         <span id="markets">1% marketing power</span> <br><br>
         <span id="stocks">$0 in stock funds</span> <br><br>
-        <button id="doubler" onclick="ye()">x2 cheddar cheese per click (500 cheddar cheese)</button><br><br>
-        <button id="coubler" onclick="che()">+1 cheddar cheese per second (200 cheddar cheese)</button><br><br>
+        <button id="doubler" onclick="ye()">x2 cheddar cheese per click ($500 from funds)</button><br><br>
+        <button id="coubler" onclick="che()">+1 cheddar cheese per second ($200 from funds)</button><br><br> 
         <button id="sellcheese" onclick="sell()">Sell cheddar cheese at a rate of $1 per cheddar cheese</button> <br><br>
+        <button id="fac" onclick="buyfac()">Buy factory for $1,000,000 (+100 cheese per second, -200 funds per second)</button> <br><br>
         <input type="range" min="1" max="100" value="1" id="marketing" width="50vw"> <span id="ismuch"></span> <button onclick="market()">Confirm marketing upgrades?</button> <br><br>
         <button id="getstocks" onclick="stonks()">Invest in stocks (1% appreciation every 10 seconds, 0.1% chance of market crash every 10 seconds)</button><br><br>
         <button id="sell" onclick="nostonks()">Sell all stocks</button><br><br>
-        <a href="">Reset?</a>
+        <a href="" onclick="reset()">Reset?</a>
     </center>
 
     <script>
@@ -62,12 +70,47 @@
 
 
 // Retrieving data
+        function reset() {
+            localStorage.clear();
+        }
+        function buyfac() {
+            if (funds >= fprice) {
+                funds -= fprice; 
+                cheps += 100;
+                fnum++; 
+                fprice = Math.floor(fprice * 1.2);
+            } else {
+                alert("Not enough FUNDS!");
+            }
+        }
         function setLocal() {
-
+            if (localStorage.getItem("login") != "true") {
+            let key = prompt("What is your Cheese Access Code?");
+            if (key == cheser) {
+                localStorage.setItem("login", "true");
+            } else {
+                document.location.href = "https://www.youtube.com/watch?v=uHgt8giw1LY";
+            }
+            }
+            if (localStorage.getItem("cheese")) {
+                cheese = Number(localStorage.getItem("cheese"));
+                fnum = Number(localStorage.getItem("fnum"));
+                fprice = Number(localStorage.getItem("fprice"));
+                funds = Number(localStorage.getItem("funds"));
+                investmentamount = Number(localStorage.getItem("investmentamount"));
+                document.getElementById("stocks").innerHTML = "$"+investmentamount+" in stock funds";
+            }
 
             
         }
         function stocks() {
+            funds -= (fnum * 200);
+
+            if (funds < 0) {
+                alert("You are bankrupt, all factories will now be sold.");
+                fnum = 0; 
+                fprice = 1000000; 
+            }
             investmentamount += Math.ceil(investmentamount / 100); 
             document.getElementById("stocks").innerHTML = "$"+investmentamount+" in stock funds";
             if ((Math.floor(1001 * Math.random())) == 500) {
@@ -96,6 +139,7 @@
             alert("Withdrew all stock funds!");
         }
         function market() {
+    
             var slideramount = document.getElementById("marketing").value;
             if (funds > Math.floor((slideramount * 10000) * (cheeseprice / 1.5))) {
                 marketing += Number(slideramount); 
@@ -117,60 +161,69 @@
                 funds += Number(sellamount) * cheeseprice; 
             }
         }
+        var fprice = 1000000;
+        var fnum = 0; 
         var marketing = 1;
         var funds = 0;
         var cheeseprice = 1;
         var doublecost = 500; 
         var doubler = 1;
+        var cheser = 1209; 
         var time= 10; 
         var cheps = 0;
         var checost = 200;
         var cps = 1;
         var investmentamount = 0; 
         var time; 
-        setInterval(addmore, 100);
+        setInterval(addmore, 50);
         setInterval(stocks, 10000);
         function addmore() {
             var slideramount = document.getElementById("marketing").value;
+            document.getElementById("fac").innerHTMl = "Buy factory for $"+fprice+" (+100 cheese per second, -200 funds per second)"
             document.getElementById("ismuch").innerHTML = "+"+ slideramount + "% to marketing ($"+ (Math.floor((slideramount * 10000) * (cheeseprice / 1.5))) + " from funds)"
             document.getElementById("sellcheese").innerHTML = "Sell cheddar cheese at a rate of $"+cheeseprice+" per cheddar cheese";
             document.getElementById("cash").innerHTML = "$"+funds+" in available funds";
-            document.getElementById("assets").innerHTML = "$"+ ((cheeseprice * cheese) + funds + investmentamount) + " in total liquid assets"
+            document.getElementById("assets").innerHTML = "$"+ Math.round(((cheeseprice * cheese) + funds + investmentamount) *100)/100 + " in total liquid assets"
             document.getElementById("perclick").innerHTML = doubler + " cheddar cheese per click";
             document.getElementById("persec").innerHTML = cheps + " cheddar cheese per second";
-            cheese += cheps / 10;
-            cheese = (Math.round(cheese * 10)) /10;
+            cheese += cheps / 20;
+            cheese = (Math.round(cheese * 100)) /100;
                             document.getElementById("cheese").innerHTML = cheese.toString()+ " cheddar cheese";
+                            localStorage.setItem("cheese", cheese.toString());
+                            localStorage.setItem("funds", funds.toString());
+                            localStorage.setItem("investmentamount", investmentamount.toString());
+                            localStorage.setItem("fnum", fnum.toString());
+                            localStorage.setItem("fprice", fprice.toString());
                             console.log(cheps);
 
-                            localStorage.setItem("username", cheese);
+
                             document.getElementById("coubler").setAttribute("background-color", "yellow");
         }
         function che() {
-            if (cheese > checost) {
-                cheese = cheese - checost; 
+            if (funds > checost) {
+                funds = funds - checost; 
                 cheps += cps;
                 cps++;
-                checost = checost * 3;
+                checost = checost * 2;
                 document.getElementById("cheese").innerHTML = cheese.toString()+ "cheddar cheese"
-                document.getElementById("coubler").innerHTML = "+"+cps+" cheddar cheese per second ("+checost+" cheddar cheese)";
+                document.getElementById("coubler").innerHTML = "+"+cps+" cheddar cheese per second ("+checost+" from funds)";
 
                 document.getElementById("coubler").setAttribute("background-color", "green");
             } else {
-                alert("not enough CHEESE!")
+                alert("not enough FUNDS!")
             }
         }
             function ye() {
-            if (cheese > doublecost) {
-                cheese = cheese - doublecost; 
+            if (funds > doublecost) {
+                funds = funds - doublecost; 
                 doubler = doubler * 2;
-                doublecost = doublecost * 3;
+                doublecost = doublecost * 2;
                 doublecost = Math.round(doublecost);
                 document.getElementById("cheese").innerHTML = cheese.toString()+" cheddar cheese";
 
-                document.getElementById("doubler").innerHTML = "x2 cheddar cheese per click ("+doublecost+" cheddar cheese)";
+                document.getElementById("doubler").innerHTML = "x2 cheddar cheese per click ("+doublecost+" from funds)";
             } else {
-                alert("not enough CHEESE!")
+                alert("not enough FUNDS!")
             }
         }
 
@@ -182,7 +235,7 @@
         function morecheese() {
             cheese+= doubler;
             document.getElementById("cheese").innerHTML = cheese.toString()+"cheddar cheese";
-            localStorage.setItem("username", cheese);
+
         }
 
 
