@@ -98,6 +98,8 @@
                 fprice = Number(localStorage.getItem("fprice"));
                 funds = Number(localStorage.getItem("funds"));
                 investmentamount = Number(localStorage.getItem("investmentamount"));
+                marketing = Number(localStorage.getItem("marketing"));
+                cheps = Number(localStorage.getItem("cheps"));
                 document.getElementById("stocks").innerHTML = "$"+investmentamount+" in stock funds";
             }
 
@@ -194,6 +196,8 @@
                             localStorage.setItem("investmentamount", investmentamount.toString());
                             localStorage.setItem("fnum", fnum.toString());
                             localStorage.setItem("fprice", fprice.toString());
+                            localStorage.setItem("marketing", marketing.toString()); 
+                            localStorage.setItem("cheps", cheps.toString());
                             console.log(cheps);
 
 
